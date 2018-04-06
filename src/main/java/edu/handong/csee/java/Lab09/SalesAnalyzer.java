@@ -1,61 +1,52 @@
 package edu.handong.csee.java.Lab09;
-import java.util.Scanner;
+import java.util.Scanner; //call a package to use scanner
 
 /**
- * 
+ * This program gets number of salesmen, their names, sales and computes average of sales. 
+ * Also, shows who sells the highest profit comparing with sales average and shows other members. 
  * @author JHS
  */
-public class SalesAnalyzer {
-	private double highestSales;
-	private double averageSales;
-	private String highestName;
-	private SalesAssociate[] team;
+public class SalesAnalyzer { //the class name is SalesAnalyzer
+	private double averageSales; //declare a instance variable
+	private double highestSales; //declare a instance variable
+	private String highestName; //declare a instance variable
+	private int highestNum; 
+	private SalesAssociate[] team; //declare an array which type is SalesAssociate
 	
 	/**
 	 * 
 	 */
-	public static void main(String[] args) {
-		Scanner keyboard = new Scanner(System.in);
-		SalesAnalyzer sAnalyze = new SalesAnalyzer();
+	public static void main(String[] args) { //main method
+		int i; //declare a variable i
+		Scanner keyboard = new Scanner(System.in); //instantiate a keyboard
+		SalesAnalyzer sAnalyze = new SalesAnalyzer(); //instantiate sAnalyze
 		
 		
-		System.out.println("Enter number of sales associates : ");
-		int times = keyboard.nextInt();
-		//SalesAssociate[] team = new SalesAssociate[times];
+		System.out.println("Enter number of sales associates : "); //print some message
+		int times = keyboard.nextInt(); //times gets value from user
+		SalesAssociate[] team = new SalesAssociate[times]; //instantiate(?) SaluesAssociate type array team 
 		
-		for(int i=0; i < times; i++) {
-			System.out.println("Enter data for associate number " + i+1);
-			sAnalyze.getData(i);
-			System.out.println("");
+		for(i=0; i < times; i++) { //repeat as times
+			System.out.println("Enter data for associate number " + i+1); //print some message
+			sAnalyze.getData(i); //gets person(i)'s value
+			System.out.println(""); //make a one line
 		}
 		
-		sAnalyze.computeAverage(times);
-		sAnalyze.computeHighestSales(times);
+		sAnalyze.computeAverage(); //computes sales average
+		sAnalyze.computeHighestSales();
 		
-		System.out.println("Average sales per associate is $" + sAnalyze.averageSales);
-		System.out.println("The highest sales figure is $" + sAnalyze.highestSales);
-		System.out.println("");
-		
-		System.out.println("The following had the highest sales : ");
-		System.out.println("Name : " + sAnalyze.highestName);
-		System.out.println("Sales : " + sAnalyze.highestSales);
-		System.out.println("$" + (sAnalyze.highestSales-sAnalyze.averageSales) + "above the average.");
-		
-		
-		
-			
-
+		sAnalyze.displayResults();
 	}
 
 	/**
-	 * 
+	 * gets a data of name and sales of person
 	 */
-	public void getData(int i) {
-		Scanner keyboard = new Scanner(System.in);
-		System.out.print("Enter name of sales associate : ");
-		team[i].name = keyboard.nextLine();
-		System.out.print("Enter associate's sales : $");
-		team[i].sales = keyboard.nextDouble();
+	public void getData(int i) { //method name is getData
+		Scanner keyboard = new Scanner(System.in); //instantiate keyboard to use scanner
+		System.out.print("Enter name of sales associate : "); //print some message
+		team[i].name = keyboard.nextLine();  //name gets string type value from user 
+		System.out.print("Enter associate's sales : $"); //print some message
+		team[i].sales = keyboard.nextDouble(); //sales gets double type value from user
 	}
 		
 		
@@ -63,22 +54,24 @@ public class SalesAnalyzer {
 	/**
 	 * 
 	 */
-	public void computeAverage(int times) {
+	public void computeAverage() {
 		double sum = 0;
-		for(int i=0; i < times; i++) {
+		for(int i=0; i < team.length; i++) {
 			sum += team[i].sales;
 		}
-		this.averageSales = sum / times;
+		this.averageSales = sum / team.length;
 	}
 	
 	/**
 	 * 
 	 */
-	public void computeHighestSales(int times) {
-		for(int i=0; i < times; i++) 
-			if(this.highestSales <= team[i].sales) {
+	public void computeHighestSales() {
+		this.highestSales = 0;
+		for(int i=0; i < team.length; i++) 
+			if(highestSales <= team[i].sales) {
 				highestSales = team[i].sales;
 				this.highestName = team[i].name;
+				this.highestNum = i;
 			}
 	}
 	
@@ -86,7 +79,28 @@ public class SalesAnalyzer {
 	 * 
 	 */
 	public void displayResults() {
-		//Syste
-	}
+		System.out.println("Average sales per associate is $" + this.averageSales);
+		System.out.println("The highest sales figure is $" + this.highestSales);
+		System.out.println("");
+		
+		for(int i=0; i < team.length; i++) {
+			if(i == this.highestNum) {
+				System.out.println("The following had the highest sales : ");
+				System.out.println("Name : " + this.highestName);
+				System.out.println("Sales : " + this.highestSales);
+				System.out.println("$" + (this.highestSales-this.averageSales) + "above the average.");
+			}
+			
+			System.out.println("The rest performed as follows :");
+			System.out.println("Name : " + team[i].name);
+			System.out.println("Sales : $" + team[i].sales);
+			if(team[i].sales > this.averageSales) 
+				System.out.println("$" + team[i].sales + " aobve the average.");
+			if(team[i].sales == this.averageSales)
+				System.out.println("$" + team[i].sales + " same the average.");
+			if(team[i].sales < this.averageSales)
+				System.out.println("$" + team[i].sales + " below the average.");
 	
+		}
+	}
 }
