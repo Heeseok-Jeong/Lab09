@@ -1,7 +1,7 @@
 package edu.handong.csee.java.Lab09;
 
 /**
- * This class is a data of SalesAssociate which contains name and sales.
+ * This class is a data of SalesAssociate which contains each person's name and sales.
  * Furthermore, it has setter and getter of each members.
  * @author JHS
  */
