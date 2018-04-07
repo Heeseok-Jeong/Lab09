@@ -41,27 +41,25 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 			team[i].name = keyboard.nextLine();  //name gets string type value from user 
 			System.out.print("Enter associate's sales : $"); //print some message
 			team[i].sales = keyboard.nextDouble(); //sales gets double type value from user
-			System.out.println("");
+			System.out.println(""); //print one line
 		}
-	}
-		
-		
+	}	
 	
 	/**
 	 * this method computes a sales average and informations of who sells the highest prices
 	 */
 	public void computeStats() { //this method name is computeAverage
-		int i;
-		double sum = 0;
-		for(i=0; i < numberOfAssociate; i++) {
-			sum += team[i].sales;
+		int i; //declare a local variable
+		double sum = 0; //declare a local variable
+		for(i=0; i < numberOfAssociate; i++) { //repeat numberOfAssociate times
+			sum += team[i].sales; //keep summing person's sales value into sum
 			
 			if(highestSales <= team[i].sales) { //if highestSales value is less than team[i].sales value
 				highestSales = team[i].sales; //highestSalesvalue is that value
 				highestName = team[i].name; //highestName is that name
 			}
 		}
-		averageSales = sum / numberOfAssociate;
+		averageSales = sum / numberOfAssociate; //the average is sum / numberOfAssociate
 	}
 	
 	/**
@@ -77,18 +75,18 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 		System.out.println("Sales : " + highestSales); //print highest sales
 		System.out.println("$" + (highestSales-averageSales) + "above the average.");
 		System.out.println(""); //add one line
-		System.out.println("The rest performed as follows :");
+		System.out.println("The rest performed as follows :"); //print some message
 		
 		for(int i=0; i < team.length; i++) { //loop until i's value is same team.length
 			if(team[i].sales != highestSales) {  //if i is same this.highestNum
-				System.out.println("Name : " + team[i].name);
-				System.out.println("Sales : $" + team[i].sales);
-				if(team[i].sales > averageSales) 
-					System.out.println("$" + (team[i].sales-averageSales) + " aobve the average.");
-				if(team[i].sales == averageSales) 
-					System.out.println("$" + (team[i].sales-averageSales) + " same the average.");
-				if(this.team[i].sales < averageSales) 
-					System.out.println("$" + (averageSales - team[i].sales) + " below the average.");
+				System.out.println("Name : " + team[i].name); //print team[i]'s name
+				System.out.println("Sales : $" + team[i].sales); //print team[i]'s sales
+				if(team[i].sales > averageSales)  //and if team[i]'s sales is larger than average
+					System.out.println("$" + (team[i].sales-averageSales) + " above the average."); //print how much different between sales and average
+				if(team[i].sales == averageSales)  //or if team[i]'s sales is same than average
+					System.out.println("$" + (team[i].sales-averageSales) + " same the average."); //print how much different between sales and average
+				if(this.team[i].sales < averageSales) //or if team[i]'s sales is smaller than average
+					System.out.println("$" + (averageSales - team[i].sales) + " below the average."); //print how much different between sales and average
 			}
 		}
 	}
