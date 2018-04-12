@@ -1,4 +1,5 @@
 package edu.handong.csee.java.Lab09;
+import java.util.ArrayList;
 import java.util.Scanner; //call a package to use scanner
 
 /**
@@ -10,9 +11,12 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 	private double averageSales; //declare an instance variable
 	private double highestSales; //declare an instance variable
 	private String highestName; //declare an instance variable 
-	private String highestName2;
-	private int numberOfAssociate; //declare an instance variable
-	private SalesAssociate[] team = new SalesAssociate[numberOfAssociate]; //declare and instantiate SalesAssociate type array
+	private SalesAssociate sAssociate = new SalesAssociate();
+	private String name = sAssociate.name;
+	private Double sales = sAssociate.sales;
+	private ArrayList<String> teamName = new ArrayList<String>();
+	private ArrayList<Double> teamSales = new ArrayList<Double>();
+	private int listSize = teamName.size();
 	Scanner keyboard = new Scanner(System.in); //instantiate a keyboard
 	
 	/**
@@ -29,20 +33,24 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 	 * gets a name and sales of person
 	 */
 	public void getData() { //method name is getData
-		System.out.println("Enter number of sales associates : "); //print some message
-		this.numberOfAssociate = keyboard.nextInt(); //times gets value from user
-		//keyboard.nextLine(); //this is for skipping enter key
-		team = new SalesAssociate[numberOfAssociate]; //instantiate SalesAssociate array team 
+		int i = 1;
+		boolean done = true;
 		
-		for(int i=0; i < numberOfAssociate; i++) { //repeat as times
-			team[i] = new SalesAssociate();
-			System.out.println("Enter data for associate number " + (i+1)); //print some message
+		while(done) { //repeat as times
+			System.out.println("Enter data for associate number " + i++); //print some message
 			System.out.print("Enter name of sales associate : "); //print some message
 			keyboard.nextLine(); //this is for skipping enter key
-			team[i].name = keyboard.nextLine();  //name gets string type value from user 
+			String name = keyboard.nextLine();  //name gets string type value from user 
+			teamName.add(name);
 			System.out.print("Enter associate's sales : $"); //print some message
-			team[i].sales = keyboard.nextDouble(); //sales gets double type value from user
+			Double sales = keyboard.nextDouble(); //sales gets double type value from user
+			teamSales.add(sales);
 			System.out.println(""); //print one line
+			System.out.print ("More items for the list?('yes' for run or other key) ");
+			String ans = keyboard.nextLine ();
+            if (!ans.equalsIgnoreCase ("yes"))
+                done = false;
+            System.out.println(""); //print one line
 		}
 	}	
 	
@@ -50,17 +58,18 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 	 * this method computes a sales average and informations of who sells the highest prices
 	 */
 	public void computeStats() { //this method name is computeAverage
-		int i; //declare a local variable
+		 
 		double sum = 0; //declare a local variable
-		for(i=0; i < numberOfAssociate; i++) { //repeat numberOfAssociate times
-			sum += team[i].sales; //keep summing person's sales value into sum
+		for(int i = 0; i < listSize; i++) { //repeat listSize times
+			sum += teamSales.get(listSize); //keep summing person's sales value into sum
 			
-			if(highestSales <= team[i].sales) { //if highestSales value is less than team[i].sales value
-				highestSales = team[i].sales; //highestSalesvalue is that value
-				highestName = team[i].name; //highestName is that name
+			highestSales = 0.0;
+			if(highestSales <= teamSales.get(i)) { //if highestSales value is less than team[i].sales value
+				highestSales = teamSales.get(i); //highestSalesvalue is that value
+				highestName = teamName.get(i); //highestName is that name
 			}
 		}
-		averageSales = sum / numberOfAssociate; //the average is sum / numberOfAssociate
+		averageSales = sum / listSize; //the average is sum / listSize
 	}
 	
 	/**
@@ -78,16 +87,16 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 		System.out.println(""); //add one line
 		System.out.println("The rest performed as follows :"); //print some message
 		
-		for(int i=0; i < team.length; i++) { //loop until i's value is same team.length
-			if(team[i].sales != highestSales) {  //if i is same this.highestNum
-				System.out.println("Name : " + team[i].name); //print team[i]'s name
-				System.out.println("Sales : $" + team[i].sales); //print team[i]'s sales
-				if(team[i].sales > averageSales)  //and if team[i]'s sales is larger than average
-					System.out.println("$" + (team[i].sales-averageSales) + " above the average."); //print how much different between sales and average
-				if(team[i].sales == averageSales)  //or if team[i]'s sales is same than average
-					System.out.println("$" + (team[i].sales-averageSales) + " same the average."); //print how much different between sales and average
-				if(this.team[i].sales < averageSales) //or if team[i]'s sales is smaller than average
-					System.out.println("$" + (averageSales - team[i].sales) + " below the average."); //print how much different between sales and average
+		for(int i=0; i < listSize; i++) { //loop until i's value is same team.length
+			if(teamSales.get(i) != highestSales) {  //if i is same this.highestNum
+				System.out.println("Name : " + teamName.get(i)); //print team[i]'s name
+				System.out.println("Sales : $" + teamSales.get(i)); //print team[i]'s sales
+				if(teamSales.get(i) > averageSales)  //and if team[i]'s sales is larger than average
+					System.out.println("$" + (teamSales.get(i) - averageSales) + " above the average."); //print how much different between sales and average
+				if(teamSales.get(i) == averageSales)  //or if team[i]'s sales is same than average
+					System.out.println("$" + (teamSales.get(i) - averageSales) + " same the average."); //print how much different between sales and average
+				if(teamSales.get(i) < averageSales) //or if team[i]'s sales is smaller than average
+					System.out.println("$" + (averageSales - teamSales.get(i)) + " below the average."); //print how much different between sales and average
 			}
 		}
 	}
