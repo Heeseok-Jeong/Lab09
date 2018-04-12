@@ -10,6 +10,7 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 	private double averageSales; //declare an instance variable
 	private double highestSales; //declare an instance variable
 	private String highestName; //declare an instance variable 
+	private String highestName2;
 	private int numberOfAssociate; //declare an instance variable
 	private SalesAssociate[] team = new SalesAssociate[numberOfAssociate]; //declare and instantiate SalesAssociate type array
 	Scanner keyboard = new Scanner(System.in); //instantiate a keyboard
