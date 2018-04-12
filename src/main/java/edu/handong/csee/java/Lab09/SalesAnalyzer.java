@@ -16,7 +16,7 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 	private Double sales = sAssociate.sales;
 	private ArrayList<String> teamName = new ArrayList<String>();
 	private ArrayList<Double> teamSales = new ArrayList<Double>();
-	private int listSize = teamName.size();
+	private int listSize;
 	Scanner keyboard = new Scanner(System.in); //instantiate a keyboard
 	
 	/**
@@ -58,17 +58,21 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 	 * this method computes a sales average and informations of who sells the highest prices
 	 */
 	public void computeStats() { //this method name is computeAverage
-		 
-		double sum = 0; //declare a local variable
+		listSize = teamSales.size(); 
+		highestSales = 0.0;
+		double sum = 0.0; //declare a local variable
 		for(int i = 0; i < listSize; i++) { //repeat listSize times
-			sum += teamSales.get(listSize); //keep summing person's sales value into sum
+			sum += teamSales.get(i); //keep summing person's sales value into sum
 			
-			highestSales = 0.0;
-			if(highestSales <= teamSales.get(i)) { //if highestSales value is less than team[i].sales value
+			
+			//System.out.println(highestSales);
+			//System.out.println(highestName);
+			if(highestSales < teamSales.get(i)) { //if highestSales value is less than team[i].sales value
 				highestSales = teamSales.get(i); //highestSalesvalue is that value
 				highestName = teamName.get(i); //highestName is that name
 			}
 		}
+		
 		averageSales = sum / listSize; //the average is sum / listSize
 	}
 	
