@@ -39,12 +39,12 @@ public class SalesAnalyzer { //the class name is SalesAnalyzer
 		while(done) { //repeat as times
 			System.out.println("Enter data for associate number " + i++); //print some message
 			System.out.print("Enter name of sales associate : "); //print some message
-			keyboard.nextLine(); //this is for skipping enter key
 			String name = keyboard.nextLine();  //name gets string type value from user 
 			teamName.add(name);
 			System.out.print("Enter associate's sales : $"); //print some message
 			Double sales = keyboard.nextDouble(); //sales gets double type value from user
 			teamSales.add(sales);
+			keyboard.nextLine(); //this is for skipping enter key
 			System.out.println(""); //print one line
 			System.out.print ("More items for the list?('yes' for run or other key) ");
 			String ans = keyboard.nextLine ();
